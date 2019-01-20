@@ -41,7 +41,5 @@ object FunctionStudy {
       result += num
     }
     result
-
-
   }
 }
