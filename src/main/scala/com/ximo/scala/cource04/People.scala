@@ -8,9 +8,12 @@ package com.ximo.scala.cource04
 class People {
 
   /** 定义属性 */
-  var name:String = ""
+  var name:String = _
 
   val age:Int = 10
+
+  /** 性别 */
+  private val gender = "male"
 
 
   def eat():String = {
@@ -26,6 +29,9 @@ class People {
     println(name + "watching football")
   }
 
+  private def printGender(): Unit = {
+    println(this.gender)
+  }
 
 }
 
@@ -36,5 +42,6 @@ object Main{
     val person = new People()
     person.name = "zwz"
     println(person.name + person.age)
+
   }
 }
