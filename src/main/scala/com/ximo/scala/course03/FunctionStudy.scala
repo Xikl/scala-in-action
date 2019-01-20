@@ -13,6 +13,9 @@ object FunctionStudy {
     println(noArgsFunc())
     println(noArgsFunc)
     sayHello("zwz")
+    sayHello()
+
+    println(sumRange(1, 2, 3, 4))
   }
 
   /**
@@ -28,7 +31,17 @@ object FunctionStudy {
 
   def noArgsFunc() = 3 + 4
 
-  def sayHello(name: String): Unit ={
+  def sayHello(name: String = "unknown"): Unit ={
     println("hello, " + name)
+  }
+
+  def sumRange(numbers:Int*): Int ={
+    var result = 0;
+    for (num <- numbers) {
+      result += num
+    }
+    result
+
+
   }
 }
