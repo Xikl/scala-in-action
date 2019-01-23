@@ -35,8 +35,15 @@ object FunctionStudy {
     println("hello, " + name)
   }
 
+  /**
+    * 可变参数
+    *
+    * @param numbers
+    * @return
+    */
   def sumRange(numbers:Int*): Int ={
-    var result = 0;
+    var result = 0
+    // 循环
     for (num <- numbers) {
       result += num
     }
