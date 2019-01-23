@@ -31,7 +31,7 @@ object FunctionStudy {
 
   def noArgsFunc() = 3 + 4
 
-  def sayHello(name: String = "unknown"): Unit ={
+  def sayHello(name: String = "unknown"): Unit = {
     println("hello, " + name)
   }
 
@@ -41,7 +41,7 @@ object FunctionStudy {
     * @param numbers
     * @return
     */
-  def sumRange(numbers:Int*): Int ={
+  def sumRange(numbers: Int*): Int = {
     var result = 0
     // 循环
     for (num <- numbers) {
@@ -49,4 +49,40 @@ object FunctionStudy {
     }
     result
   }
+
+  /**
+    * 学习if
+    *
+    * @param num
+    * @return
+    */
+  def studyIf(num: Int): Boolean = {
+//    if (num > 0) {
+//      true
+//    } else{
+//      false
+//    }
+    num > 0
+  }
+
+  def studyToAndRange(): Unit={
+    // 循环表达式
+    // to 包括1 和 10
+    1 to 10
+    1.to(10)
+
+    // range
+    // error step 不等于0
+//    Range(1, 10, 0)
+
+    // Range 和 until 都不包括最后一个值
+    Range(1, 10, 1).foreach(i => println(i))
+
+    Range(10, 1, -1).foreach(i => println(i))
+
+    1.until(10).foreach(println(_))
+  }
+
+
+
 }
