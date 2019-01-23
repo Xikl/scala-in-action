@@ -81,6 +81,24 @@ object FunctionStudy {
     Range(10, 1, -1).foreach(i => println(i))
 
     1.until(10).foreach(println(_))
+
+    for(i <- 1 to 10 if i % 2 == 0) {
+      println(i)
+    }
+
+    val courses = Array("python", "java", "scala")
+    for (course <- courses) {
+      println(course)
+    }
+
+    courses.foreach(println(_))
+
+    var (num, sum) = (100, 0)
+    while (num > 0) {
+      sum += num
+      num = num - 1
+    }
+
   }
 
 
