@@ -15,7 +15,7 @@ object ConstructorApp {
 //    println(person2.gender + person2.school + person2.age)
 
     val student = new Student("zwz", 12, "编程")
-    println(student.name, student.age, student.major)
+    println(student)
   }
 
 
@@ -44,9 +44,17 @@ class Person(val name: String, val age: Int) {
 
 class Student(name: String, age: Int, var major: String) extends Person(name, age) {
 
+//  override def toString: String = {
+//    this.name + "," + this.age + "," + this.major
+//  }
+
+
+
   println("学生构造器 start")
   this.major = "ss"
   println("学生构造器 end")
+
+  override def toString = s"Student($major, $name, $age)"
 }
 
 
