@@ -48,13 +48,14 @@ class Student(name: String, age: Int, var major: String) extends Person(name, ag
 //    this.name + "," + this.age + "," + this.major
 //  }
 
+  override val school: String = "杭电2"
 
 
   println("学生构造器 start")
   this.major = "ss"
   println("学生构造器 end")
 
-  override def toString = s"Student($major, $name, $age)"
+  override def toString = s"Student($major, $name, $age, $school)"
 }
 
 
