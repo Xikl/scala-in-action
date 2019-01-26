@@ -13,7 +13,7 @@ class People {
   val age:Int = 10
 
   /** 性别 */
-  private val gender = "male"
+  private [this] val gender = "male"
 
 
   def eat():String = {
@@ -29,6 +29,7 @@ class People {
     println(name + "watching football")
   }
 
+  /** this的使用   */
   private def printGender(): Unit = {
     println(this.gender)
   }
@@ -42,6 +43,9 @@ object Main{
     val person = new People()
     person.name = "zwz"
     println(person.name + person.age)
+
+    println(person.eat())
+
 
   }
 }
