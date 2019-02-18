@@ -37,6 +37,19 @@ object ArrayTest extends App {
 
   println(sb.toString)
 
-  Option
+  val arr = ArrayBuffer[Int]()
+
+  arr += 1
+  arr += 2
+  arr += (3 ,4 ,5)
+  arr ++= Array(6,7,8)
+  arr.foreach(print(_))
+
+  // 逆序操作
+  arr.reverse.foreach(" " + print(_))
+
+  arr.insert(2, 3, 3)
+
+  arr.remove(1, 2)
 
 }
