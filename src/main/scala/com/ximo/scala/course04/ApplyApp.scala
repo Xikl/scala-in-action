@@ -1,4 +1,4 @@
-package com.ximo.scala.cource04
+package com.ximo.scala.course04
 
 /**
   *
