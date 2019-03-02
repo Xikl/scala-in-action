@@ -18,6 +18,9 @@ object CurryApp extends App {
 
   curryTest2(2)(3)
 
+  def curriedAdd(x:Int)(y:Int) = x + y
 
+  val addOne = curriedAdd(1)_
+  addOne(2)
 
 }
