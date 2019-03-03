@@ -35,20 +35,23 @@ object FactorialApp extends App {
   def sum(f: Int => Int)(a: Int)(b: Int): Int = {
 
     @tailrec
-    def loop(n :Int, acc: Int) :Int = {
+    def loop(n: Int, acc: Int): Int = {
       if (n > b) {
         println(s"n=$n, acc=$acc")
         acc
-      } else{
+      } else {
         println(s"n=$n, acc=$acc")
         loop(n + 1, acc + f(n))
       }
     }
+
     loop(a, 0)
   }
 
   sum(x => x * x)(1)(5)
 
+  // 惰性求值
+  val streamA = (1 to 100000000).toStream
 
 
 }
