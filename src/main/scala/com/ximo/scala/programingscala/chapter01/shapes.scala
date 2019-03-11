@@ -16,10 +16,10 @@ abstract class Shape {
 }
 
 /** 圆形 */
-case class Circle(center: Point, radius: Point) extends Shape
+case class Circle(center: Point, radius: Double) extends Shape
 
 /** 矩形 */
-case class Rectangle(lowerLeft: Point, height: Point, width: Point) extends Shape
+case class Rectangle(lowerLeft: Point, height: Double, width: Double) extends Shape
 
 /** 三角形 */
 case class Triangle(point1: Point, point2: Point, point3: Point) extends Shape
