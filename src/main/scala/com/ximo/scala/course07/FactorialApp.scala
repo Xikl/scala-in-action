@@ -53,6 +53,11 @@ object FactorialApp extends App {
   // 惰性求值
   val streamA = (1 to 100000000).toStream
 
+  // t为初始元组的中的值
+  def sumSeq(in: List[Int]): (Int, Int, Int) =
+    in.foldLeft((0, 0, 0))((t, v) => (t._1 + 1, t._2 + v, t._3 + v * v))
+
+
 
 }
 
