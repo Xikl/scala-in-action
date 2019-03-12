@@ -3,6 +3,7 @@ package com.ximo.scala.programingscala.chapter02
 
 import scala.concurrent.Future
 import scala.util.Success
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   *
@@ -15,11 +16,12 @@ object futures {
     Thread.sleep(millis)
   }
 
-  def doWork(index: Int): Unit = {
+  def doWork(index: Int): Int = {
     sleep((math.random() * 1000).toLong)
     index
   }
 
+  // import scala.concurrent.ExecutionContext.Implicits.global 隐式转化
   (1 to 5) foreach { index =>
     val future = Future {
       doWork(index)
