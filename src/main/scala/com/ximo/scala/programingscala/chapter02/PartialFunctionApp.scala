@@ -18,6 +18,7 @@ object PartialFunctionApp extends App {
   }
 
   /** 将这两个函数结合，得到一个新的偏函数：既能匹配字符串，又能匹配 Double 数字。 */
+  /** 偏函数的部分 orElse */
   val pf = pf1 orElse pf2
 
   /**
@@ -37,7 +38,10 @@ object PartialFunctionApp extends App {
     }
   }
 
-  /** 使用了 isDefineAt */
+   /**
+    *  使用了 isDefineAt
+     * 判断该值是否在该函数的处理范围 返回true or false
+    */
   def d(x: Any, f: PartialFunction[Any, String]) = f.isDefinedAt(x).toString
 
   println("  | pf1 - String  | pf2 - Double  | pf - All")
@@ -58,4 +62,14 @@ object PartialFunctionApp extends App {
   // 这种方式就能推断
   def m2[A](a: A)(f: A => String) = f(a)
   m2("sss")(str => str.toString)
+
+  // collect 收集为新的集合
+  val sample = 1 to 10
+  val isEven: PartialFunction[Int, String] = {
+    case x if x % 2 == 0 => x + " is even"
+  }
+
+  // the method collect can use isDefinedAt to select which members to collect
+  val evenNumbers = sample collect isEven
+
 }
