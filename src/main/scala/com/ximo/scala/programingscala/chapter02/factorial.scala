@@ -12,18 +12,19 @@ class factorial {
   /**
     * 尾递归
     * 两次使用变量i 且嵌套方法中的变量i不受外界影响
+    * 但是 我们还是尽量使用不一样的变量名称 机器能看懂 我们人要看的明白
     *
-    * @param i
+    * @param index
     * @return
     */
-  def factorial(i: Int): Long = {
+  def factorial(index: Int): Long = {
     @tailrec
-    def fact(i: Int, accumulator: Int): Long = {
+    def fact(i: Int, accumulator: Long): Long = {
       if (i <= 1) accumulator
       else fact(i - 1, i * accumulator)
     }
 
-    fact(i, 1)
+    fact(index, 1)
   }
 
   // 递归调用
