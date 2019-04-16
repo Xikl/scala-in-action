@@ -23,8 +23,19 @@ class Shapes {
   val p2: Point = p1.copy(y = 6.6)
 
   abstract class Shape() {
+    /**
+      * 传递两个参数
+      *
+      *
+      * @param offset 偏移量
+      * @param f 具体的操作
+      */
     def draw(offset: Point = Point())(f: String => Unit): Unit = {
       f(s"draw something offset = $offset, ${this.toString}")
+    }
+
+    def draw2(offset: Point = Point(), f: String => Unit): Unit ={
+      draw(offset)(f)
     }
   }
 
@@ -33,10 +44,16 @@ class Shapes {
   case class Rectangle(lowerLeft: Point, height: Double, width: Double) extends Shape
 
   val shape = Circle(Point(), 2.0)
+  // Scala 允许我们把参数列表两边的圆括号替换为花括号 牛逼
   shape.draw(Point(1.0, 2.0))(str => println(s"Drawing $str"))
 
   shape.draw(Point(2.0, 2.0)){ str => println(s"drawing $str")}
 
+  // 假设像java一样编写多个 参数在一个方法里
+  shape.draw2(Point(1.0, 2.0), str => println(s"drawing $str"))
+
+  // 或者使用缺省的值 必须指定是什么方法
+  shape.draw2(f = str => println(s"$str"))
 
   def test(x: String)(f :String => Unit): Unit = {
     f(s"你好test str $x ${this.toString}")
