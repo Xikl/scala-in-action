@@ -16,15 +16,33 @@ object TypePredict {
   val map2: HashMap[String, String] = new HashMap
   val intToStringMap: HashMap[Integer, String] = new HashMap
 
-  object StringUtilV1 {
+  /**
+    * 类型推断 养成一个好习惯 方法都应该编写返回类型
+    *
+    * @author 朱文赵
+    * @date 2019/4/17 11:59
+    */
+  object StringUtilsV1 {
+
+    /**
+      * mkString
+      *
+      * @param strings
+      * @return
+      */
     def joiner(strings: String*): String = strings.mkString("-")
 
-    // strings :_* 告诉编译器你希望列表 string 作为可变参数列表
-    // 第二个joiner方法调用了第一个joiner方法 所以必须要指定返回类型
-    def joiner(strings: List[String]): String = joiner(strings: _*)
+    /**
+      * 调用上面的方法 将list变为一个变长数组 : _*
+      *
+      * @param stringList
+      * @return
+      */
+    def joiner(stringList: List[String]): String = joiner(stringList: _*)
+
   }
 
-  StringUtilV1.joiner(List("11", "sss"))
+  StringUtilsV1.joiner(List("11", "sss"))
 
   /**
     * 返回的是List[Any]
@@ -34,12 +52,19 @@ object TypePredict {
     */
   def makeList(strings: String*) = {
     if (strings.isEmpty) {
+      // 这里本来就有问题 下面是一个 字符串 然后 这里是一个 List(0)
       List(0)
     } else {
       strings.toList
     }
   }
 
+  /**
+    * 空列表产生
+    * @see List#Nil
+    * @param strings
+    * @return
+    */
   def makeList2(strings: String*) = {
     if (strings.isEmpty) {
 //      Nil
