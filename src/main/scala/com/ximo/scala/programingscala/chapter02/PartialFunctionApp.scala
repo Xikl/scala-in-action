@@ -44,6 +44,16 @@ object PartialFunctionApp extends App {
     */
   def d(x: Any, f: PartialFunction[Any, String]) = f.isDefinedAt(x).toString
 
+
+  """
+    || pf1 - String | pf2 - Double | pf - All
+    |x | def? | pf1(x) | def? | pf2(x) | def? | pf(x)
+    |++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    |str | true | YES | false | ERROR! | true | YES
+    |3.14 | false | ERROR! | true | YES | true | YES
+    |10 | false | ERROR! | false | ERROR! | false | ERROR!
+    |
+  """.stripMargin
   println("  | pf1 - String  | pf2 - Double  | pf - All")
   println("x | def? | pf1(x) | def? | pf2(x) | def? | pf(x)")
   println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -52,7 +62,7 @@ object PartialFunctionApp extends App {
       x.toString, d(x, pf1), tryPf(x, pf1), d(x, pf2), tryPf(x, pf2), d(x, pf), tryPf(x, pf))
   })
 
-  def m1[A](a: A, f: A => String) = f(a)
+  def m1[A](a: A, f: A => String): String = f(a)
   // 这种情况会报错 str缺少类型 因为 scalac无法推断str的类型
 //  m1("sss", str => str.toString)
   // 应该这样写
@@ -60,7 +70,7 @@ object PartialFunctionApp extends App {
 
   // 我们看另外一种写法
   // 这种方式就能推断
-  def m2[A](a: A)(f: A => String) = f(a)
+  def m2[A](a: A)(f: A => String) : String = f(a)
   m2("sss")(str => str.toString)
 
   // collect 收集为新的集合

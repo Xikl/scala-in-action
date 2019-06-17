@@ -25,3 +25,26 @@ class SparkConf(loadDefaults: Boolean)
 - 两个或多个方法重载（拥有相同的函数名），其中一个方法调用了另一个重载方
 法，调用者需要显式类型注解。
 - Scala 推断出的类型比你期望的类型更为宽泛，如 Any 。
+#### 使用sealed 也可以用final来进行限制派生
+#### Java 使用尖括号（ <…> ），而 Scala 使用方括号（ […] ），因为在 Scala 中 < 和 > 
+```scala
+val strings: List[String] = List("aa", "bb", "cc")
+```
+###$ +A 和 -A
+A 之前的 + 表示：如果 B 是 A 的子类，则 List[B] 也是 List[A] 的子类型，这被称为
+协类型。协类型很符合直觉，如果我们有一个函数 f(list: List[Any]) ，那么传递
+List[String] 给这个函数，也应该能正常工作。
+如果类型参数前有 -，则表示另一种关系：如果 B 是 A 的子类型，且 Foo[A] 被声明为
+Foo[-A] ，则 Foo[B] 是 Foo[A] 的父类型（称为逆类型）。
+#### type 类型成员 和 Example[String]的区别
+```scala
+abstract class BaseExample{
+  type In
+  
+  val name: In
+}
+
+abstract class BaseExample1[In] {
+  val name: In
+}
+```
