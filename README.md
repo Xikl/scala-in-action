@@ -48,3 +48,14 @@ abstract class BaseExample1[In] {
   val name: In
 }
 ```
+#### 斯巴达式写法
+```scala
+  def isEven(n: Int): Boolean = (n % 2) == 0
+  // 语言话 “斯巴达式”（斯巴达式，指的是非常简洁的方式）
+  List(1, 2, 3, 4) filter isEven foreach println
+  // 链式调用
+  List(1, 2, 3, 4).filter(isEven).foreach(println)
+  // 当然还有写明参数的
+  List(1, 2, 3, 4).filter((i: Int) => isEven(i)).foreach((i: Int) => println(i))
+  List(1, 2, 3, 4).filter(i => isEven(i)).foreach(i => println(i))
+```
