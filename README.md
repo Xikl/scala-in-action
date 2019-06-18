@@ -59,3 +59,14 @@ abstract class BaseExample1[In] {
   List(1, 2, 3, 4).filter((i: Int) => isEven(i)).foreach((i: Int) => println(i))
   List(1, 2, 3, 4).filter(i => isEven(i)).foreach(i => println(i))
 ```
+#### yielding
+```scala
+ val dogBreeds = List("Doberman", "Yorkshire Terrier", "Dachshund",
+    "Scottish Terrier", "Great Dane", "Portuguese Water Dog")
+  // for yielding 收集操作
+  // scala中不成为的规定 多个if的时候 用 {} 单个的时候用 （）
+  val newBreeds = for {
+    breed <- dogBreeds
+    if breed.contains("Dog") || breed.startsWith("D")
+  } yield breed
+```
