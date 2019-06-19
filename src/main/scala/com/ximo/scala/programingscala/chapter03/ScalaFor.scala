@@ -1,5 +1,10 @@
 package com.ximo.scala.programingscala.chapter03
 
+import java.time.LocalDate
+import java.util.concurrent.TimeUnit
+
+import java.time.DayOfWeek
+
 /**
   *
   *
@@ -63,6 +68,37 @@ object ScalaFor {
     Some(breed) <- dogBreedsOptional
     upCasedBreed = breed.toUpperCase
   } println(upCasedBreed)
+
+  import java.util.Calendar
+
+  def isFridayThirteen(cal: Calendar): Boolean = {
+    val dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+    val dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
+    (dayOfWeek == Calendar.FRIDAY) && (dayOfMonth == 13)
+  }
+
+  /**
+    * java8 下
+    *
+    * @param localDate
+    * @return
+    */
+  def isFridayThirteen(localDate: LocalDate): Boolean = {
+    val dayOfWeek = localDate.getDayOfWeek
+    val dayOfMonth = localDate.getDayOfMonth
+    dayOfWeek.equals(DayOfWeek.FRIDAY) && (dayOfMonth == 13)
+  }
+
+  while (!isFridayThirteen(Calendar.getInstance())) {
+    println("牛逼")
+    TimeUnit.SECONDS.sleep(24 * 60 * 60)
+  }
+
+  var count = 0
+  do {
+    count += 1
+    println(count)
+  } while (count < 10)
 
 
 }
