@@ -70,3 +70,4 @@ abstract class BaseExample1[In] {
     if breed.contains("Dog") || breed.startsWith("D")
   } yield breed
 ```
+#### scala 没有break 和 continue语句
