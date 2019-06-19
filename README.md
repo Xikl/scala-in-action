@@ -71,3 +71,24 @@ abstract class BaseExample1[In] {
   } yield breed
 ```
 #### scala 没有break 和 continue语句
+#### 异常
+Scala 并不支持已被视为失败设计的检查型异常（checked
+exception）。Scala 将 Java 中的检查型异常视为非检查型，而且方法声明中
+也不包含 throw 子句。不过 Scala 提供了有助于 Java 互操作的 @throws 注解
+（http://www.scala-lang.org/api/current/index.html#scala.throws）
+#### NonFatal 和 Exception
+```scala
+import scala.util.control.NonFatal
+// NonFatal 只有在他的apply方法返回true的时候才会进行捕获
+try{
+
+}catch{
+  case NonFatal(e) => print(s"catched non fatal exception $e")
+}
+
+try{
+
+}catch{
+  case e: Exception => print(s"catched all exception $e")
+}
+```
