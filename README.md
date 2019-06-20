@@ -92,3 +92,12 @@ try{
   case e: Exception => print(s"catched all exception $e")
 }
 ```
+#### 传名函数 懒加载 by-name parameter VS 匿名类 Supplier () => R 实现懒加载
+- 1.传名函数
+```scala
+def apply[R <: {def close() : Unit}, T](resource: => R)(f: R => T): Unit = {}
+```
+- 2.匿名函数
+```scala
+def apply[R <: AutoCloseable, T](resource: () => R)(f: R => T): Unit = {}
+```
