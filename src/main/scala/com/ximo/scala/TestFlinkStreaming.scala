@@ -1,6 +1,7 @@
 package com.ximo.scala
 
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.api.common.typeinfo.TypeInformation
+import org.apache.flink.streaming.api.scala._
 
 /**
   *
@@ -14,15 +15,15 @@ object TestFlinkStreaming {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val someIntegers: DataStream[Long] = env.generateSequence(0, 1000)
 
-    someIntegers.iterate(
-      iteration => {
-        val minusOne = iteration.map(_ - 1)
-        val stillGreaterThanZero = minusOne.filter(_ > 0)
-        val lessThanZero = minusOne.filter(_ <= 0)
-        return (stillGreaterThanZero, lessThanZero)
-      }
+//    val iteratedStream = someIntegers.iterate(
+//      iteration => {
+//        val minusOne = iteration.map(_ - 1)
+//        val stillGreaterThanZero = minusOne.filter(_ > 0)
+//        val lessThanZero = minusOne.filter(_ <= 0)
+//        (stillGreaterThanZero, lessThanZero)
+//      }
 
-    )
+//    )
   }
 
 
