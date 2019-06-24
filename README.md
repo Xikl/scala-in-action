@@ -93,11 +93,17 @@ try{
 }
 ```
 #### 传名函数 懒加载 by-name parameter VS 匿名类 Supplier () => R 实现懒加载
-- 1.传名函数
+- 1.传名函数 resource: => R
 ```scala
 def apply[R <: {def close() : Unit}, T](resource: => R)(f: R => T): Unit = {}
 ```
-- 2.匿名函数
+- 2.匿名函数 resource: () => R
 ```scala
 def apply[R <: AutoCloseable, T](resource: () => R)(f: R => T): Unit = {}
+```
+#### 枚举 
+```scala
+// Values方法
+// 单个 Value 
+
 ```
