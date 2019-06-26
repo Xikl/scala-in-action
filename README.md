@@ -107,3 +107,7 @@ def apply[R <: AutoCloseable, T](resource: () => R)(f: R => T): Unit = {}
 // 单个 Value 
 
 ```
+#### 模式匹配的信息
+更加强大的instanceOf的判断<br>
+case 关键字被同时用于声明一种“特殊”的类，又用于 match 表达式中的 case 表达式，这
+可不是巧合。 case 类的特性就是为更便捷地进行模式匹配而设计的。
