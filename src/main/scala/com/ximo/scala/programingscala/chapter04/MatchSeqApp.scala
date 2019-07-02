@@ -60,7 +60,7 @@ object MatchSeqApp {
   val nonEmptyList2 = List(1, 2, 3, 4)
   val emptyList2 = Nil
 
-  def listToString[T](list: List[T]): String = {
+  def listToString[T](list: List[T]): String = list match {
     case head :: tail => s"($head :: ${listToString(tail)})"
     case Nil => "(Nil)"
   }
@@ -69,4 +69,27 @@ object MatchSeqApp {
   for (list <- List(nonEmptyList2, emptyList2)) {
       println(listToString(list))
   }
+
+  // Nil :+ 1 :+ 2 :+ 3 :+ 4 :+ 5
+  val nonEmptyList_ = List(1, 2, 3, 4 ,5)
+  val nonEmptyVector_ = Vector(1, 2, 3, 4, 5)
+  val nonEmptyMap_ = Map("ONE" -> 1, "TWO" -> 2)
+
+  /**
+    * 左结合
+    * Nil :+ 1 :+ 2 :+ 3 :+ 4 :+ 5
+    *
+    * @param l
+    * @tparam T
+    * @return
+    */
+  def reverseSeqToString[T](l: Seq[T]): String = l match {
+    case prefix :+ end => reverseSeqToString(prefix) + s" :+ $end"
+    case Nil => "Nil"
+  }
+
+  for (seq <- Seq(nonEmptyList_, nonEmptyVector_, nonEmptyMap_.toSeq)) {
+    println(reverseSeqToString(seq))
+  }
+
 }
