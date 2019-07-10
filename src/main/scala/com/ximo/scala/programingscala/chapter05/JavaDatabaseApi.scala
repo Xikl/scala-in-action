@@ -48,9 +48,18 @@ object JavaDatabaseApi extends App {
 
   implicit class SRow(jRow: JRow){
     def get[T](columnName: String)(implicit toT: (JRow, String) => T): T =
-      toT(jRow)
+      toT(jRow, columnName)
   }
 
+  // 添加隐式转化
+  implicit val jRowToInt: (JRow, String) => Int =
+    (jRow, columnName) => jRow.getInt(columnName)
+
+  implicit val jRowToDouble: (JRow, String) => Double =
+    (jRow, columnName) => jRow.getDouble(columnName)
+
+  implicit val jRowToString: (JRow, String) => String =
+    (jRow, columnName) => jRow.getText(columnName)
 
 
 }
