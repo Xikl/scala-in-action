@@ -46,6 +46,11 @@ object JavaDatabaseApi extends App {
     def apply(pairs: (String, Any)*): JRow = new JRow(Map(pairs :_*))
   }
 
+  implicit class SRow(jRow: JRow){
+    def get[T](columnName: String)(implicit toT: (JRow, String) => T): T =
+      toT(jRow)
+  }
+
 
 
 }
