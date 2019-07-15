@@ -1,7 +1,7 @@
 package com.ximo.scala.programingscala.chapter05
 
 /**
-  *
+  * 二义性
   *
   * @author xikl
   * @date 2019/7/11

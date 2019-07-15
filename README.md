@@ -114,5 +114,11 @@ case 关键字被同时用于声明一种“特殊”的类，又用于 match �
 #### A <:< B
 ```scala
 //A 是 （key, value）的子类型 pair的子类型 返回值是 GenMap
-def toMap[K, V](implicit ev: A <:< (K, V)): GenMap[K, V]
+def toMap[T, U](implicit ev: A <:< (T, U)): immutable.Map[T, U] = {
+val b = immutable.Map.newBuilder[T, U]
+for (x <- self)
+  b += x
+
+b.result()
+}
 ```
