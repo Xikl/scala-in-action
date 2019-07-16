@@ -74,7 +74,7 @@ object phantomTypes {
   import Pipeline._
   import Payroll._
 
-  // todo
+  // 链式 调用
   def invoke2: Unit = {
     val e = Employee("Buck Trends", 100000, 0.25F, 200, 0.10, 0.05)
     val pay = start(e) |>
