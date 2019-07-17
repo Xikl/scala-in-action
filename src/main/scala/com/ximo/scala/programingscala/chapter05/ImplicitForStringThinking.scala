@@ -8,7 +8,7 @@ package com.ximo.scala.programingscala.chapter05
   */
 object ImplicitForStringThinking {
 
-  val s = "scala zheng niubi!"
+  val s = s"scala zheng niubi!"
 
   // Predef
   s.reverse
