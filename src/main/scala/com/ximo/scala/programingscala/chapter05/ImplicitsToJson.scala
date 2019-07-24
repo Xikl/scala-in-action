@@ -26,12 +26,10 @@ object ImplicitsToJson {
   implicit class AddressToJson(address: Address) extends ToJson {
     override def toJson(level: Int): String = {
       val (outdent, indent) = indentation(level)
-      s"""
-         |{
+      s"""{
          | $indent"street": ${address.street},
          | $indent"city": ${address.city}
-         | $outdent
-         |}
+         | $outdent}
        """.stripMargin
 
     }
