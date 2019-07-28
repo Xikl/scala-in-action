@@ -8,8 +8,6 @@ object HofsClosureExample extends  App {
 
   (1 to 10) filter(_ % 2 == 0) map multiplier reduce (_ * _)
 
-  (1 to 10) filter (_ > 3) map (_ * 2) fold()
-
   factor = 3
 
   (1 to 10) filter(_ % 2 == 0) map multiplier reduce(_ * _)
