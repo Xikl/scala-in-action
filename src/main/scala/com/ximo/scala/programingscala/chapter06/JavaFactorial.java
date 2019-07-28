@@ -49,6 +49,12 @@ public class JavaFactorial {
     }
 
 
+    /**
+     * 尾递归优化
+     *
+     * @param n
+     * @return
+     */
     public static long bestFactorialRec(long n) {
         if (n < 0) {
             throw new IllegalArgumentException();
