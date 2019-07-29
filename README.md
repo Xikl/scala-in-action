@@ -123,3 +123,16 @@ for (x <- self)
 b.result()
 }
 ```
+#### curry 柯里化
+```scala
+  def multiplier(i: Int)(factor: Int) = i * factor
+  
+  """
+    |这种写明了 返回类型的 就不需要 _ 下划线来表示了
+  """.stripMargin
+  val by20: Int => Int = multiplier(20)
+  by20(2)
+  
+  val by10 = multiplier(10) _
+  by10(3)
+```
