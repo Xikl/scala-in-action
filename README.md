@@ -135,4 +135,11 @@ b.result()
   
   val by10 = multiplier(10) _
   by10(3)
+  
+   val finicky: PartialFunction[String, String] = {
+      case "finicky" => "FINICKY"
+    }
+    val liftFinicky = finicky.lift
+  // Function.unlift 下降
+    val finicky2 = Function.unlift(liftFinicky)
 ```

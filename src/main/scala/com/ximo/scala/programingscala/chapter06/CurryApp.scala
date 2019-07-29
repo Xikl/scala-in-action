@@ -77,9 +77,33 @@ object CurryApp extends App {
   // 元组逆转化
   val multiFunction: (Double, Double, Double) => Double = Function.untupled(tupleToDouble)
 
+  val finicky: PartialFunction[String, String] = {
+    case "finicky" => "FINICKY"
+  }
 
+  // FINICKY
+  finicky("finicky")
 
+  // error
+  finicky("other")
 
+  // 提升为option
+  val liftFinicky = finicky.lift
+
+  // None
+  liftFinicky("other")
+
+  // Some("FINICKY")
+  liftFinicky("finicky")
+
+  // Function.unlift 下降
+  val finicky2 = Function.unlift(liftFinicky)
+
+  // none
+  finicky2("other")
+
+  // FINICKY
+  finicky2("finicky")
 
 
 }
