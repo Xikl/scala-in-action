@@ -32,16 +32,17 @@ object Flatmap {
     val result = maybeString.getOrElse("default")
     println(result)
 
+    val data = List(1, 2, 3, 4)
     // reduce
-    val result1 = list.reduce(_ + _)
+    val result1 = data.reduce(_ + _)
     println(result1)
 
-    val result2 = list.fold(10)(_ + _)
+    val result2 = data.fold(0)(_ - _)
 
     println(result2)
 
     // 中缀表达式
-    (list fold 10) (_ + _)
+    val value = (data fold 10) (_ + _)
 
     val fold1: ((Int, Int) => Int) => Int = (list fold 10) _
     fold1 (_ * _)
