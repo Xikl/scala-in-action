@@ -44,10 +44,41 @@ object Flatmap {
     // 中缀表达式
     val value = (data fold 10) (_ + _)
 
+    // 奇怪的写法
     val fold1: ((Int, Int) => Int) => Int = (list fold 10) _
     fold1 (_ * _)
 
+    // 对空集合进行操作
+    // 返回10
+    (Nil fold 10) (_ + _)
 
+    // 无法操作
+    //java.lang.UnsupportedOperationException: empty.reduceLeft
+    //  at scala.collection.LinearSeqOptimized.reduceLeft(LinearSeqOptimized.scala:139)
+    //  at scala.collection.LinearSeqOptimized.reduceLeft$(LinearSeqOptimized.scala:138)
+    //  at scala.collection.immutable.List.reduceLeft(List.scala:89)
+    //  at scala.collection.TraversableOnce.reduce(TraversableOnce.scala:211)
+    //  at scala.collection.TraversableOnce.reduce$(TraversableOnce.scala:211)
+    //  at scala.collection.AbstractTraversable.reduce(Traversable.scala:108)
+    //  ... 28 elided
+//    List.empty[Int] reduce(_ + _)
+
+    // 但是可以用 另一种代替
+    // None
+    List.empty[Int] reduceOption  (_ + _)
+
+    //  (List(1, 2, 3, 4,5, 6) foldRight  List.empty[String]) {
+    //      (x, list) => (s"[$x]") :: list
+    //    }
+    // List[String] = List([1], [2], [3], [4], [5], [6])
+    (List(1, 2, 3, 4,5, 6) foldRight  List.empty[String]) {
+      (x, list) => s"[$x]" :: list
+    }
+
+    // List[String] = List([6], [5], [4], [3], [2], [1])
+    (List(1, 2, 3, 4,5, 6) foldLeft   List.empty[String]) {
+      (list, x) => s"[$x]" :: list
+    }
 
   }
 
