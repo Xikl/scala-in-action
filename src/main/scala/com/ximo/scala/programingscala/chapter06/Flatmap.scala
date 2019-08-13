@@ -45,8 +45,8 @@ object Flatmap {
     val value = (data fold 10) (_ + _)
 
     // 奇怪的写法
-    val fold1: ((Int, Int) => Int) => Int = (list fold 10) _
-    fold1 (_ * _)
+//    val fold1: ((Int, Int) => Int) => Int = (list fold 10) _
+//    fold1 (_ * _)
 
     // 对空集合进行操作
     // 返回10

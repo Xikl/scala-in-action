@@ -1,7 +1,6 @@
 package com.ximo.scala
 
-import org.apache.flink.api.common.typeinfo.TypeInformation
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment, _}
 
 /**
   *
@@ -22,7 +21,6 @@ object TestFlinkStreaming {
     val someIntegers: DataStream[Long] = env.generateSequence(0, 1000)
 
     // 添加隐式参数
-    implicit val typeInfo: TypeInformation[Long] = TypeInformation.of(classOf[Long])
 
     val iteratedStream = someIntegers.iterate(
       iteration => {
@@ -33,6 +31,10 @@ object TestFlinkStreaming {
       }
 
     )
+
+    iteratedStream.print()
+
+    env.execute()
   }
 
 

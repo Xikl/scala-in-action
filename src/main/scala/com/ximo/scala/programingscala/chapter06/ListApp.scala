@@ -20,6 +20,6 @@ object ListApp extends App {
 
   val listUnion = List(1, 2, 3) ++ List(4, 5)
 
-  // 最好使用 Seq 因为List 和 Vector
+  // 最好使用 Seq 因为List 和 Vector 都是他的子类
 
 }
