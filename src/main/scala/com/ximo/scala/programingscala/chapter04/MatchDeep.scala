@@ -72,6 +72,20 @@ object MatchDeep {
         processSeq(tail)
       case Nil => print("Nil")
     }
+
+    /**
+      * unapply的解析
+      * 编译器如何才能在看到 case head +: tail => ... 表达式时调用 +:.unapply(collection)
+      * 方法呢？我们需要把 case 子句写成 case +:(head, tail) => ...
+      *
+      */
+    def processSeq2[T](seq: Seq[T]): Unit = seq match {
+      case +:(head, tail) =>
+        printf("%s +: ", head)
+        processSeq2(tail)
+      case _ => print("Nil")
+    }
+
   }
 
 
