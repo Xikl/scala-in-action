@@ -18,7 +18,7 @@ object DeepMatch extends App {
 
   /**
     * p实现了对Person的赋值
-    * 同样a也是
+    * 模式匹配 case class
     *
     */
   Seq(alice, bob, charlie) foreach {
