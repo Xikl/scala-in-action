@@ -6,7 +6,7 @@ object NameApp extends App {
 
   class Name2(val value: String)
 
-  class Name3(s: String){
+  class Name3(s: String) {
     private var _value: String = s
 
     def value: String = _value
@@ -16,9 +16,17 @@ object NameApp extends App {
       *
       * @param newValue
       */
-    def value_=(newValue: String) : Unit = _value = newValue
+    def value_=(newValue: String): Unit = _value = newValue
   }
 
+  class Name4(s: String) {
+    var value: String = s
+  }
 
+  // 统一访问原则
+  val name4 = new Name4("sss")
+  println(name4.value)
+  name4.value_=("ssssaaaa")
+  println(name4.value)
 
 }
