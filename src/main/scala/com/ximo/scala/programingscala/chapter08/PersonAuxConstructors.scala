@@ -28,16 +28,17 @@ object PersonAuxConstructors extends App {
 
   }
 
-  case class Person2(name: String, age: Option[Int] = None, address: Option[Address] = None) {
-
-  }
-
-  Person2("aaa")
 
   // 必须要使用 new
   // 编译器不会自动为 case 类的次级构造器创建 apply 方法
   new Person("sss")
 
+  case class Person2(name: String, age: Option[Int] = None, address: Option[Address] = None) {
+
+  }
+
+  Person2("aaa")
+  Person2("aaa", Some(1))
 
   case class Person3(name: String,
                      age: Option[Int] = None,

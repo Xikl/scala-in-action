@@ -143,3 +143,27 @@ b.result()
   // Function.unlift 下降
     val finicky2 = Function.unlift(liftFinicky)
 ```
+#### _= 中缀表达式
+```scala
+  class Name(s: String){
+    private var _value: String = s
+
+    def value: String = _value
+
+    /**
+      * 通用写法 _= 可以转化为中缀表达式
+      * 
+      * @param newValue
+      */
+    def value_=(newValue: String) : Unit = _value = newValue
+  }
+  
+   val name = new Name("sss")
+    name.value = "new value"
+```
+
+#### Person(val value： String) VS Person(var value: String)
+```
+val 不可变 值生产 get 方法
+var 可变会生成get set 方法
+```
