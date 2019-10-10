@@ -7,6 +7,7 @@ package com.ximo.scala.programingscala.chapter08
 object ZipCodeApp extends App {
 
   case class ZipCode(zip: Int, extension: Option[Int] = None) {
+    // 校验的类 当为false的抛出改错误信息
     require(valid(zip, extension), s"非法的邮编$zip")
 
     protected def valid(zip: Int, extension: Option[Int]): Boolean = {
@@ -30,5 +31,10 @@ object ZipCodeApp extends App {
     def apply(zip: Int, extension: Int): ZipCode = new ZipCode(zip, Some(extension))
   }
 
+  ZipCode(1)
+
+  ZipCode(1, Some(2))
+
+  ZipCode(1, 2)
 
 }
