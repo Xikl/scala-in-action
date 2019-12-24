@@ -32,16 +32,14 @@ object Implicits_Class_Test {
 
   }
 
-  object Implicits_Class{
-    def main(args: Array[String]): Unit = {
-      import  Context._
+  def main(args: Array[String]): Unit = {
+    import  Context._
 
-      // 增强类的方法
-      println(new File("you file path").read)
+    // 增强类的方法
+//    println(new File("you file path").read)
 
-      // 增强类的方法
-      println(1.add(3))
-    }
+    // 增强类的方法
+    println(1.add(3))
   }
 
 }
