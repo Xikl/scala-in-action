@@ -21,6 +21,7 @@ object ImplicitArgs extends App {
 
     val amount = 100F
 
+    // 假如没有指定 隐式变量那么就要直接写明
     println(s"Tax On $amount = ${calcTax(amount)}")
   }
 

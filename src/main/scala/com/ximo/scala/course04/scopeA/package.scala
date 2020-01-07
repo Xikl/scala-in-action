@@ -20,7 +20,7 @@ package object scopeA {
 
   class PublicClass2 extends PublicClass1 {
 
-    val field2 = publicField + 1
+    val field2 = this.publicField + 1
     val nField2 = new Nested().nestedField
 
   }

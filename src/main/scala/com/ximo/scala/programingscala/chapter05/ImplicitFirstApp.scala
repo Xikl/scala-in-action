@@ -13,7 +13,7 @@ object ImplicitFirstApp extends App {
   implicit val currentTaxRate: Float = 0.08F
 
   val tax = calcTax(50000)
-
+  println(tax)
 
 
 }
