@@ -44,6 +44,9 @@ object ListTest extends App {
   println(sum())
   println(sum(list3:_*))
 
+  val testList = Seq(1, 5, 2, 0, 7)
+  val result = testList.sorted
+  println(result)
 
 
 

@@ -18,6 +18,8 @@ object implicitlyArgs extends App {
 
   val list = MyList(List(1, 2, 3, 4))
 
+//  val list1 = list sortBy1(i => -i)
+  // 负数比较
   val list1 = list sortBy1(-_)
   println(list1)
 
