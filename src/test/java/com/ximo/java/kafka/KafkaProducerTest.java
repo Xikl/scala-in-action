@@ -47,17 +47,18 @@ public class KafkaProducerTest {
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-        Producer<String, String> producer = new KafkaProducer<>(properties);
-        for (int index = 0; index < 10; index++) {
-            final String key = Integer.toString(index);
-            final String value = key;
-            final ProducerRecord<String, String> record = new ProducerRecord<>(
-                    "zwz_test",
-                    key,
-                    value
-            );
-            producer.send(record, (data, e) -> e.printStackTrace());
+        // 它可以自动关闭 故可以改成这种 try resources的写法
+        try (Producer<String, String> producer = new KafkaProducer<>(properties)) {
+            for (int index = 0; index < 10; index++) {
+                final String key = Integer.toString(index);
+                final String value = key;
+                final ProducerRecord<String, String> record = new ProducerRecord<>(
+                        "zwz_test",
+                        key,
+                        value
+                );
+                producer.send(record, (data, e) -> e.printStackTrace());
+            }
         }
-        producer.close();
     }
 }
