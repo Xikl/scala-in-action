@@ -1,8 +1,8 @@
 package com.ximo.java.kafka;
 
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.errors.RetriableException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +57,17 @@ public class KafkaProducerTest {
                         key,
                         value
                 );
-                producer.send(record, (data, e) -> e.printStackTrace());
+                producer.send(record, (metadata, exception) -> {
+                    if (exception == null) {
+                        // 发送成功
+                    } else {
+                        if (exception instanceof RetriableException) {
+                            // 可重试异常
+                        } else {
+                            // 不可重试异常
+                        }
+                    }
+                });
             }
         }
     }
