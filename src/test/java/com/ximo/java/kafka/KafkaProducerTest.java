@@ -37,6 +37,7 @@ public class KafkaProducerTest {
         //acks=1 如果设置为1，leader节点会将记录写入本地日志，并且在所有 follower 节点反馈之前就先确认成功。在这种情况下，如果 leader 节点在接收记录之后，并且在 follower 节点复制数据完成之前产生错误，则这条记录会丢失。
         //acks=all 如果设置为all，这就意味着 leader 节点会等待所有同步中的副本确认之后再确认这条记录是否发送完成。只要至少有一个同步副本存在，记录就不会丢失。这种方式是对请求传递的最有效保证。acks=-1与acks=all是等效的
         properties.put("acks", "all");
+        // 默认为0 如果不设置 那就将直接失败
         properties.put("retries", 0);
         // 默认就是该值
         properties.put("batch.size", 16384);
