@@ -45,6 +45,9 @@ public class KafkaProducerTest {
         properties.put("linger.ms", 1);
         // 默认值
         properties.put("buffer.memory", 33554432);
+        // 指定分区
+        properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, "com.ximo.java.kafka.AuditPartitioner");
+
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
