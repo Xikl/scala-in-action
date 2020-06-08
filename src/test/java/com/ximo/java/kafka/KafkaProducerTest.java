@@ -7,9 +7,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
 
 /**
@@ -17,6 +20,7 @@ import static org.junit.Assert.*;
  *
  * @author xikl
  * @date 2020/4/20
+ * @see org.apache.kafka.common.serialization.Serializer 自定义序列化类
  */
 public class KafkaProducerTest {
 
@@ -74,5 +78,18 @@ public class KafkaProducerTest {
                 });
             }
         }
+    }
+
+    @Test
+    public void testAddProducerInterceptor() {
+        // 这样能够到达到拦截器链按照顺序创建 当然也可以按照顺序调用
+        Properties properties = new Properties();
+        final List<String> producerInterceptorList = Stream.of(
+                "com.ximo.java.kafka.ExampleProducerInterceptor",
+                "com.ximo.java.kafka.CounterProducerInterceptor"
+        ).collect(toList());
+
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, producerInterceptorList);
+        // 省略其他代码
     }
 }
