@@ -92,4 +92,53 @@ public class KafkaProducerTest {
         properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, producerInterceptorList);
         // 省略其他代码
     }
+
+    @Test
+    public void testNoDataLoseConfig() {
+        Properties properties = new Properties();
+        // 原始配置 block.on.buffer.full=true,现在已经被废弃
+        properties.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 10);
+        // 保证全部的接收
+        properties.put(ProducerConfig.ACKS_CONFIG, "all");
+        // 重试次数设置为大一点，避免失败
+        properties.put(ProducerConfig.RETRIES_CONFIG, 1000);
+        // 保证producer发送的未响应的请求
+        properties.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1);
+        // 使用具有回调的send方法
+//        producer.send(record, (metadata, exception) -> ...)
+
+        // unclean.leader.election.enable = false
+
+        // 参考hadoop的副本个数
+        // replication.factor >= 3
+
+        // 保证kafka的ISR的特性，有多少个副本被写入才算成功
+        // min.insync.replicas > 1
+
+        // 注意 保证 replication.factor > min.insync.replicas
+
+    }
+
+    @Test
+    public void testProducerCompression() {
+        Properties properties = new Properties();
+        // 设置为 snappy 的压缩方式
+        properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+    }
+
+    @Test
+    public void testMultiThreadWithSingletonProducerSend() {
+        // 多线程单KafkaProducer 实例
+        // partition比较少的情况
+        // KafkaProducer 线程安全
+
+        // 多个线程 共享一个 producer实例
+        // 如果一个挂了 那么大家都没法玩
+    }
+
+    @Test
+    public void testMultiThreadWithMultiSingletonProducerSend() {
+        // 多个线程 new多个生产者
+        // 这个适合多个partition的情况
+    }
 }
