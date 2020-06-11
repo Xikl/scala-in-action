@@ -42,9 +42,13 @@ public class KafkaConsumerTest {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
         // 订阅 topic
+        // 如果调用多次 subscribe 那么将会用最新的列表
+        // org.apache.kafka.clients.consumer.ConsumerRebalanceListener 重平衡
         consumer.subscribe(Arrays.asList("zwz_test"));
         try {
             for (; ; ) {
+                // poll 参数是 100 代表是超时时间
+                // 最多等一秒
                 final ConsumerRecords<String, String> consumerRecords = consumer.poll(100);
                 for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
                     System.out.printf("offset = %d, key = %s, value = %s%n", consumerRecord.offset(),
