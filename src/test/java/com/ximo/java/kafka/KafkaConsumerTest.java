@@ -31,7 +31,7 @@ public class KafkaConsumerTest {
         properties.put("bootstrap.servers", "192.168.85.128:9092");
         // 消费者组
         properties.put("group.id", "zwz_test_group");
-        // 自动提交
+        // 自动提交，对于一些需要精确一次的处理语义，应该将其置为false，自己来决定是否提交
         properties.put("enable.auto.commit", true);
         // 消费者多长时间提交给zk
         properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
@@ -39,7 +39,9 @@ public class KafkaConsumerTest {
         properties.put("auto.offset.reset", "earliest");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-
+        // 默认十秒
+//        ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG rebalance
+//        ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG 处理逻辑的最大处理时间
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
         // 订阅 topic
         // 如果调用多次 subscribe 那么将会用最新的列表
