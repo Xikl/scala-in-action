@@ -4,10 +4,12 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 /**
  * @author xikl
@@ -47,6 +49,11 @@ public class KafkaConsumerTest {
         // 如果调用多次 subscribe 那么将会用最新的列表
         // org.apache.kafka.clients.consumer.ConsumerRebalanceListener 重平衡
         consumer.subscribe(Arrays.asList("zwz_test"));
+        // 订阅所有的kafka的开头的数据
+//        consumer.subscribe(Pattern.compile("kakaf-.*"));
+
+//        TopicPartition topicPartition = new TopicPartition("zwz_test", 0);
+//        consumer.assign(Arrays.asList(topicPartition));
         try {
             for (; ; ) {
                 // poll 参数是 100 代表是超时时间
@@ -67,4 +74,11 @@ public class KafkaConsumerTest {
         // 神奇的 __consumer_offsets
 
     }
+
+    @Test
+    public void testAssignAndSubscribe() {
+//        https://blog.csdn.net/weixin_34281537/article/details/91392024
+
+    }
+
 }
