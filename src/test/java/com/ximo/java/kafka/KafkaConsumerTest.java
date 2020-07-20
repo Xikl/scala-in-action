@@ -5,10 +5,14 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.errors.WakeupException;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
@@ -81,4 +85,46 @@ public class KafkaConsumerTest {
 
     }
 
+    @Test
+    public void testKafkaConsumerMultiThreadUnsafe() {
+        // kafka 不支持多线程调用
+        // 每一个方法里都有一个acquire方法判断当前线程是否一致是否没有线程调用
+
+    }
+
+    @Test
+    public void testKafkaConsumerWakeupException() {
+        Properties properties = new Properties();
+
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties, new StringDeserializer(), new StringDeserializer());
+        // other consumer
+        CompletableFuture.runAsync(() -> {
+            try {
+                TimeUnit.MINUTES.sleep(2);
+                consumer.wakeup();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        try {
+            while (true) {
+                // 不推荐将繁重的操作放到for循环处理消息中
+                final ConsumerRecords<String, String> consumerRecords = consumer.poll(Long.MAX_VALUE);
+                for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                    System.out.printf("topic = %s, partition = %d, offset = %d", consumerRecord.topic(),
+                            consumerRecord.partition(), consumerRecord.offset());
+                }
+            }
+        } catch (WakeupException e) {
+            // 忽略此异常信息
+            e.printStackTrace();
+        } finally {
+            consumer.close();
+        }
+
+
+
+
+    }
 }
