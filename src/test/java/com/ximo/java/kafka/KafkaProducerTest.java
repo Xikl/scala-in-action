@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
 /**
  * 需要修改 vim config/server.properties 中的 advertised.listeners
  *
+ * https://blog.csdn.net/caidongxuan/article/details/109718346 kafka消息乱序解决方案
+ *
  * @author xikl
  * @date 2020/4/20
  * @see org.apache.kafka.common.serialization.Serializer 自定义序列化类
@@ -141,4 +143,29 @@ public class KafkaProducerTest {
         // 多个线程 new多个生产者
         // 这个适合多个partition的情况
     }
+
+    @Test
+    public void testKafkaProducerInit() {
+        String topic = "test_topic";
+        Properties properties = initConfig();
+        KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
+
+        ProducerRecord<String, String> producerRecord =
+                new ProducerRecord<>(topic, "test kafka");
+        producer.send(producerRecord);
+        producer.close();
+    }
+
+    public static Properties initConfig() {
+        Properties properties = new Properties();
+        String brokerList = "192.168.85.128:9092";
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerList);
+        String stringSerializer = "org.apache.kafka.common.serialization.StringSerializer";
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, stringSerializer);
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, stringSerializer);
+
+        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "my.test.producer.id.demo");
+        return properties;
+    }
+
 }
