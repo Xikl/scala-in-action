@@ -3,12 +3,15 @@ package com.ximo.java.kafka;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.errors.RetriableException;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -145,14 +148,29 @@ public class KafkaProducerTest {
     }
 
     @Test
-    public void testKafkaProducerInit() {
+    public void testKafkaProducerInit() throws ExecutionException, InterruptedException {
         String topic = "test_topic";
         Properties properties = initConfig();
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         ProducerRecord<String, String> producerRecord =
                 new ProducerRecord<>(topic, "test kafka");
-        producer.send(producerRecord);
+        // 发送多条的时候 kafka能保证多条回调 是顺序执行的
+        Future<RecordMetadata> recordMetadataFuture1 = producer.send(producerRecord, ((metadata, exception) -> {
+            if (exception == null) {
+                // 正常调用
+            } else {
+                if (exception instanceof RetriableException) {
+                    // 可重试
+                } else {
+                    // 不可重试
+                }
+            }
+        }));
+        Future<RecordMetadata> recordMetadataFuture2 = producer.send(producerRecord, ((metadata, exception) -> {}));
+        // 同步发送
+        RecordMetadata recordMetadata1 = recordMetadataFuture1.get();
+        RecordMetadata recordMetadata2 = recordMetadataFuture2.get();
         producer.close();
     }
 
@@ -160,7 +178,8 @@ public class KafkaProducerTest {
         Properties properties = new Properties();
         String brokerList = "192.168.85.128:9092";
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerList);
-        String stringSerializer = "org.apache.kafka.common.serialization.StringSerializer";
+        // 用java的获取类名的写法
+        String stringSerializer = StringSerializer.class.getName();
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, stringSerializer);
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, stringSerializer);
 
