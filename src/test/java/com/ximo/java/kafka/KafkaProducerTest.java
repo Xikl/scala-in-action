@@ -184,6 +184,9 @@ public class KafkaProducerTest {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, stringSerializer);
 
         properties.put(ProducerConfig.CLIENT_ID_CONFIG, "my.test.producer.id.demo");
+
+        // 可以传多个，INTERCEPTOR_CLASSES_CONFIG 中的类型Type为List
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, ProducerInterceptorPrefix.class.getName() + "," + ProducerInterceptorPrefix.class.getName());
         return properties;
     }
 
